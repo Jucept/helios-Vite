@@ -1,17 +1,42 @@
 import { useState, useEffect } from 'react'
 import magnetoLogo from '/magneto-b2b-white.svg'
-import esfinge from '/Esfinge.jpg'
 import './App.css'
 import axios from "axios"
 
 function App() {
-  const [count, setCount] = useState(0)
 
-  const fetchAPI= async () => {
-    const response = await axios.get("LINK DEL SERVER BACKEND")
-  }
+  const [ImageURL, setImageURL] = useState('');
+  const [prompt, setPrompt] = useState(''); // State to store user input
 
-  const PromptInput = {}
+  const HandleSubmit = async (event) => {
+    event.preventDefault();
+
+    const prompt = event.target.elements.nombre.value;
+  
+    if (!prompt) {
+      return alert('Please enter a description for the job offer.');
+    }
+  
+    try {
+      const response = await axios.post('http://127.0.0.1:5000/ImageGenerator', {
+        text: prompt,
+      });
+  
+      const ImageData = response.data.image;
+      const decodedImageData = atob(ImageData);
+      const ImageURL = URL.createObjectURL(new Blob([decodedImageData]));
+  
+      // Actualizar el estado para incluir la URL de la imagen
+      setPrompt('');
+      setImageURL(ImageURL);
+      
+    } catch (error) {
+      console.error('Error sending request:', error);
+      // Mostrar mensaje de error al usuario
+    }
+  };
+
+
 
   return (
     <>
@@ -23,15 +48,17 @@ function App() {
       </div>
 
       <div className='resultado-prompt'>
-        <img src={esfinge} alt='Imagen generada' className='image'/>
+        {ImageURL && <img src={ImageURL} alt='Imagen generada' className='image' />}
       </div>
 
       <div className="panel-input">
         <div className="text-input">
-          <input type="text" id="nombre" name="nombre" placeholder="Describe la oferta de empleo"  />
+          <form onSubmit={HandleSubmit}> 
+            <input type="text" id="nombre" name="nombre" placeholder="Describe la oferta de empleo"/>
+          </form>
         </div>
         <div className='send-button'>
-          <button>
+          <button type="submit">
             <svg height="21" viewBox="0 0 21 21" width="21" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd" stroke="black" stroke-linecap="round" stroke-linejoin="round" transform="translate(3 2)"><path d="m15.5.465-8 8.033"/><path d="m10.5 16.5-3-8.002-7-2.998 15-5z"/></g></svg>
           </button>
         </div>
