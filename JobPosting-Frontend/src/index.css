@@ -43,6 +43,15 @@ button {
   background-color: transparent;
   cursor: pointer;
 }
+
+button:enabled {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 4px 8px;
+  background-color: transparent;
+  cursor: pointer;
+}
+
 button:hover {
   border-color: #dbdbe6;
   background-color: #dbdbe6;
@@ -52,4 +61,12 @@ button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
   outline: none;
+}
+
+button:disabled { 
+    border-radius: 8px;
+    border: 1px solid transparent;
+    padding: 4px 8px;
+    background-color: transparent;
+    cursor: default;
 }
