@@ -18,6 +18,24 @@
 .resultado-prompt {
   padding: 20px;
   width: auto;
+  display: flex;
+  flex-direction: row;
+}
+
+.Imagen-0, .Imagen-1 {
+  margin: 0 10px;
+}
+
+.image {
+  max-width: 400px;
+  height: auto;
+  cursor: pointer;
+  will-change: filter;
+  transition: filter 300ms;
+}
+
+.image:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
 }
 
 .resultado-prompt img {
@@ -63,3 +81,13 @@
   color: #a8a6a6;
 }
 
+.modal-content {
+  position: relative;
+}
+
+.close-modal {
+  position: absolute; 
+  top: 0;             
+  right: 0;            
+  margin: 10px;         
+}
