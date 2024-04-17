@@ -2,7 +2,12 @@ import { useState, useEffect } from "react";
 import magnetoLogo from "/magneto-b2b-white.svg";
 import "./App.css";
 import axios from "axios";
-import loadingGif from "/Infinity-loading.gif"; // Import your loading GIF
+import loadingGif from "/Infinity-loading.gif";
+import esfinge from "/Esfinge.jpg";
+import FilerobotImageEditor, {
+  TABS,
+  TOOLS,
+} from "react-filerobot-image-editor";
 
 function App() {
   const [ImageData, setImageData] = useState("");
@@ -17,6 +22,9 @@ function App() {
 
   const [selectedImage, setSelectedImage] = useState(null);
 
+  const [showContent, setShowContent] = useState(false);
+  const [isImgEditorShown, setIsImgEditorShown] = useState(false);
+
   useEffect(() => {
     if (ImageData) {
       setIsLoading(false);
@@ -29,7 +37,7 @@ function App() {
     const prompt = event.target.elements.nombre.value;
 
     if (!prompt) {
-      return alert("Please enter a description for the job offer."); // Normalmente no se mostraría este error
+      return alert("Porfavor ingresa una oferta de empleo."); // Normalmente no se mostraría este error
     }
 
     setIsLoading(true); // Set loading indicator to true before request
@@ -82,6 +90,17 @@ function App() {
     setSelectedImage(null); // Clear selected image
   };
 
+  const openEditor = () => {
+    setShowContent(true); // Mostrar el bloque de contenido cuando se presiona el botón "Editar"
+  };
+  const openImgEditor = () => {
+    setIsImgEditorShown(true);
+  };
+
+  const closeImgEditor = () => {
+    setIsImgEditorShown(false);
+  };
+
   return (
     <>
       <div>
@@ -92,6 +111,15 @@ function App() {
       </div>
 
       <div className="resultado-prompt">
+        <div className="Imagen-01">
+          <img
+            src={esfinge}
+            alt="Imagen generada"
+            className="image"
+            onClick={() => handleImageClick(esfinge)} // Add onClick handler
+          />
+        </div>
+
         <div className="Imagen-0">
           {ImageData && !isLoading && !selectedImage && (
             <img
@@ -122,14 +150,75 @@ function App() {
       {/* Modal (hidden by default) */}
       <div className="modal-content" id="modal" style={{ display: "none" }}>
         <div>
-          <img
-            id="modal-image"
-            src={`data:image/png;base64,${selectedImage}`}
-            alt="Selected Image"
-          />
+          <img id="modal-image" src={esfinge} alt="Selected Image" />
         </div>
-        <div className="close-modal">
-          <button onClick={closeModal}>X</button>
+        <div className="tools">
+          <div className="close-modal">
+            <button onClick={closeModal}>X</button>
+          </div>
+          <div className="edit-image">
+            <button onClick={openImgEditor}>Editar</button>
+          </div>
+        </div>
+        <div className="editor">
+          {isImgEditorShown && (
+            <FilerobotImageEditor
+              source={esfinge}
+              onSave={(editedImageObject, designState) =>
+                console.log("saved", editedImageObject, designState)
+              }
+              onClose={closeImgEditor}
+              annotationsCommon={{
+                fill: "#ff0000",
+              }}
+              Text={{ text: "Filerobot..." }}
+              Rotate={{ angle: 90, componentType: "slider" }}
+              Crop={{
+                presetsItems: [
+                  {
+                    titleKey: "classicTv",
+                    descriptionKey: "4:3",
+                    ratio: 4 / 3,
+                    // icon: CropClassicTv, // optional, CropClassicTv is a React Function component. Possible (React Function component, string or HTML Element)
+                  },
+                  {
+                    titleKey: "cinemascope",
+                    descriptionKey: "21:9",
+                    ratio: 21 / 9,
+                    // icon: CropCinemaScope, // optional, CropCinemaScope is a React Function component.  Possible (React Function component, string or HTML Element)
+                  },
+                ],
+                presetsFolders: [
+                  {
+                    titleKey: "socialMedia", // will be translated into Social Media as backend contains this translation key
+                    // icon: Social, // optional, Social is a React Function component. Possible (React Function component, string or HTML Element)
+                    groups: [
+                      {
+                        titleKey: "facebook",
+                        items: [
+                          {
+                            titleKey: "profile",
+                            width: 180,
+                            height: 180,
+                            descriptionKey: "fbProfileSize",
+                          },
+                          {
+                            titleKey: "coverPhoto",
+                            width: 820,
+                            height: 312,
+                            descriptionKey: "fbCoverPhotoSize",
+                          },
+                        ],
+                      },
+                    ],
+                  },
+                ],
+              }}
+              tabsIds={[TABS.ADJUST, TABS.ANNOTATE, TABS.WATERMARK]} // or {['Adjust', 'Annotate', 'Watermark']}
+              defaultTabId={TABS.ANNOTATE} // or 'Annotate'
+              defaultToolId={TOOLS.TEXT} // or 'Text'
+            />
+          )}
         </div>
       </div>
 
