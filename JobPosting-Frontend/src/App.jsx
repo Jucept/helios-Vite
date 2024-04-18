@@ -22,7 +22,6 @@ function App() {
 
   const [selectedImage, setSelectedImage] = useState(null);
 
-  const [showContent, setShowContent] = useState(false);
   const [isImgEditorShown, setIsImgEditorShown] = useState(false);
 
   useEffect(() => {
@@ -90,9 +89,6 @@ function App() {
     setSelectedImage(null); // Clear selected image
   };
 
-  const openEditor = () => {
-    setShowContent(true); // Mostrar el bloque de contenido cuando se presiona el botón "Editar"
-  };
   const openImgEditor = () => {
     setIsImgEditorShown(true);
   };
@@ -111,6 +107,8 @@ function App() {
       </div>
 
       <div className="resultado-prompt">
+        {/* 
+        // Imagen para pruebas
         <div className="Imagen-01">
           <img
             src={esfinge}
@@ -118,7 +116,7 @@ function App() {
             className="image"
             onClick={() => handleImageClick(esfinge)} // Add onClick handler
           />
-        </div>
+        </div> */}
 
         <div className="Imagen-0">
           {ImageData && !isLoading && !selectedImage && (
@@ -150,7 +148,7 @@ function App() {
       {/* Modal (hidden by default) */}
       <div className="modal-content" id="modal" style={{ display: "none" }}>
         <div>
-          <img id="modal-image" src={esfinge} alt="Selected Image" />
+          <img id="modal-image" src={selectedImage} alt="Selected Image" />
         </div>
         <div className="tools">
           <div className="close-modal">
@@ -160,10 +158,11 @@ function App() {
             <button onClick={openImgEditor}>Editar</button>
           </div>
         </div>
+
         <div className="editor">
           {isImgEditorShown && (
             <FilerobotImageEditor
-              source={esfinge}
+              source={selectedImage}
               onSave={(editedImageObject, designState) =>
                 console.log("saved", editedImageObject, designState)
               }
@@ -171,7 +170,7 @@ function App() {
               annotationsCommon={{
                 fill: "#ff0000",
               }}
-              Text={{ text: "Filerobot..." }}
+              Text={{ text: "Magento..." }}
               Rotate={{ angle: 90, componentType: "slider" }}
               Crop={{
                 presetsItems: [
@@ -193,20 +192,189 @@ function App() {
                     titleKey: "socialMedia", // will be translated into Social Media as backend contains this translation key
                     // icon: Social, // optional, Social is a React Function component. Possible (React Function component, string or HTML Element)
                     groups: [
+                      // MARK: Facebook
                       {
-                        titleKey: "facebook",
+                        titleKey: "Facebook",
                         items: [
                           {
-                            titleKey: "profile",
-                            width: 180,
-                            height: 180,
-                            descriptionKey: "fbProfileSize",
+                            titleKey: "Foto de perfil",
+                            width: 170,
+                            height: 170,
+                            descriptionKey: "170x170px",
                           },
                           {
-                            titleKey: "coverPhoto",
-                            width: 820,
-                            height: 312,
-                            descriptionKey: "fbCoverPhotoSize",
+                            titleKey: "Foto de portada",
+                            width: 815,
+                            height: 315,
+                            descriptionKey: "815x315px",
+                          },
+                          {
+                            titleKey: "Retrato",
+                            width: 1080,
+                            height: 1350,
+                            descriptionKey: "1080x1350px",
+                          },
+                          {
+                            titleKey: "Paisaje",
+                            width: 1200,
+                            height: 630,
+                            descriptionKey: "1200x630px",
+                          },
+                          {
+                            titleKey: "Cuadrado",
+                            width: 1200,
+                            height: 1200,
+                            descriptionKey: "1200x1200px",
+                          },
+                          {
+                            titleKey: "Historia/Reels",
+                            width: 1080,
+                            height: 1920,
+                            descriptionKey: "1080x1920px",
+                          },
+                        ],
+                      },
+                      // MARK: Instagram
+                      {
+                        titleKey: "Instagram",
+                        items: [
+                          {
+                            titleKey: "Foto de Perfil",
+                            width: 320,
+                            height: 320,
+                            descriptionKey: "320x320px",
+                          },
+                          {
+                            titleKey: "Retrato",
+                            width: 1080,
+                            height: 1350,
+                            descriptionKey: "1080x1350px",
+                          },
+                          {
+                            titleKey: "Paisaje (Feed, Anuncio)",
+                            width: 1080,
+                            height: 1350,
+                            descriptionKey: "1080x1350px",
+                          },
+                          {
+                            titleKey: "Cuadrado",
+                            width: 1080,
+                            height: 1080,
+                            descriptionKey: "1080x1080px",
+                          },
+                          {
+                            titleKey: "Historia/Reels",
+                            width: 1080,
+                            height: 1920,
+                            descriptionKey: "1080x1920px",
+                          },
+                        ],
+                      },
+                      // MARK: Twitter
+                      {
+                        titleKey: "Twitter",
+                        items: [
+                          {
+                            titleKey: "Foto de Perfil",
+                            width: 400,
+                            height: 400,
+                            descriptionKey: "400x400px",
+                          },
+                          {
+                            titleKey: "Foto de Portada",
+                            width: 1500,
+                            height: 500,
+                            descriptionKey: "1500x500px",
+                          },
+                          {
+                            titleKey: "Retrato",
+                            width: 1080,
+                            height: 1350,
+                            descriptionKey: "1080x1350px",
+                          },
+                          {
+                            titleKey: "Paisaje",
+                            width: 1600,
+                            height: 900,
+                            descriptionKey: "1600x900px",
+                          },
+                          {
+                            titleKey: "Cuadrado",
+                            width: 1080,
+                            height: 1080,
+                            descriptionKey: "1080x1080px",
+                          },
+                        ],
+                      },
+                      // MARK: LinkedIn
+                      {
+                        titleKey: "LinkedIn",
+                        items: [
+                          {
+                            titleKey: "Foto de Perfil",
+                            width: 400,
+                            height: 400,
+                            descriptionKey: "400x400px",
+                          },
+                          {
+                            titleKey: "Foto de Portada",
+                            width: 1128,
+                            height: 191,
+                            descriptionKey: "1128x191px",
+                          },
+                          {
+                            titleKey: "Retrato",
+                            width: 627,
+                            height: 1200,
+                            descriptionKey: "627x1200px",
+                          },
+                          {
+                            titleKey: "Paisaje",
+                            width: 1200,
+                            height: 627,
+                            descriptionKey: "1200x627px",
+                          },
+                          {
+                            titleKey: "Cuadrado",
+                            width: 1080,
+                            height: 1080,
+                            descriptionKey: "1080x1080px",
+                          },
+                        ],
+                      },
+                      // MARK: TikTok
+                      {
+                        titleKey: "TikTok",
+                        items: [
+                          {
+                            titleKey: "Foto de Perfil",
+                            width: 200,
+                            height: 200,
+                            descriptionKey: "200x200px",
+                          },
+                          {
+                            titleKey: "Retrato",
+                            width: 1080,
+                            height: 1920,
+                            descriptionKey: "1080x1920px",
+                          },
+                          {
+                            titleKey: "Paisaje",
+                            width: 1920,
+                            height: 1080,
+                            descriptionKey: "1920x1080px",
+                          },
+                          {
+                            titleKey: "Cuadrado",
+                            width: 1080,
+                            height: 1080,
+                            descriptionKey: "1080x1080px",
+                          },
+                          {
+                            titleKey: "Historias",
+                            width: 1080,
+                            height: 1920,
+                            descriptionKey: "1080x1920px",
                           },
                         ],
                       },
@@ -214,7 +382,17 @@ function App() {
                   },
                 ],
               }}
-              tabsIds={[TABS.ADJUST, TABS.ANNOTATE, TABS.WATERMARK]} // or {['Adjust', 'Annotate', 'Watermark']}
+              Watermark={{
+                gallery: [magnetoLogo],
+              }}
+              tabsIds={[
+                TABS.ADJUST,
+                TABS.ANNOTATE,
+                TABS.WATERMARK,
+                TABS.FILTERS,
+                TABS.FINETUNE,
+                TABS.RESIZE,
+              ]} // or {['Adjust', 'Annotate', 'Watermark']}
               defaultTabId={TABS.ANNOTATE} // or 'Annotate'
               defaultToolId={TOOLS.TEXT} // or 'Text'
             />
