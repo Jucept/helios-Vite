@@ -3,11 +3,12 @@ import magnetoLogo from "/magneto-b2b-white.svg";
 import "./App.css";
 import axios from "axios";
 import loadingGif from "/Infinity-loading.gif";
-import esfinge from "/Esfinge.jpg";
 import FilerobotImageEditor, {
   TABS,
   TOOLS,
 } from "react-filerobot-image-editor";
+// eslint-disable-next-line no-unused-vars
+import esfinge from "/Esfinge.jpg";
 
 function App() {
   const [ImageData, setImageData] = useState("");
