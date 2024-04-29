@@ -149,7 +149,11 @@ function App() {
       {/* Modal (hidden by default) */}
       <div className="modal-content" id="modal" style={{ display: "none" }}>
         <div>
-          <img id="modal-image" src={selectedImage} alt="Selected Image" />
+          <img
+            id="modal-image"
+            src={`data:image/png;base64,${selectedImage}`}
+            alt="Selected Image"
+          />
         </div>
         <div className="tools">
           <div className="close-modal">
@@ -163,10 +167,11 @@ function App() {
         <div className="editor">
           {isImgEditorShown && (
             <FilerobotImageEditor
-              source={selectedImage}
+              source={`data:image/png;base64,${selectedImage}`}
               onSave={(editedImageObject, designState) =>
                 console.log("saved", editedImageObject, designState)
               }
+              defaultSavedImageName={prompt}
               onClose={closeImgEditor}
               annotationsCommon={{
                 fill: "#ff0000",
