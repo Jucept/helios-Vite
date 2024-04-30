@@ -77,8 +77,6 @@ function App() {
       // Show modal with selected image
       const modal = document.getElementById("modal");
       modal.style.display = "block"; // Show modal
-      // const modalImage = document.getElementById("modal-image");
-      // modalImage.src = selectedImage; // Set image source for modal
     } else {
       // Hide modal if no image selected
       const modal = document.getElementById("modal");
@@ -92,10 +90,14 @@ function App() {
 
   const openImgEditor = () => {
     setIsImgEditorShown(true);
+    const modal = document.getElementById("modal-image");
+    modal.style.display = "none";
   };
 
   const closeImgEditor = () => {
     setIsImgEditorShown(false);
+    const modal = document.getElementById("modal-image");
+    modal.style.display = "block";
   };
 
   return (
@@ -108,16 +110,14 @@ function App() {
       </div>
 
       <div className="resultado-prompt">
-        {/* 
-        // Imagen para pruebas
         <div className="Imagen-01">
           <img
-            src={esfinge}
+            src={esfinge} // Imagen para pruebas
             alt="Imagen generada"
             className="image"
             onClick={() => handleImageClick(esfinge)} // Add onClick handler
           />
-        </div> */}
+        </div>
 
         <div className="Imagen-0">
           {ImageData && !isLoading && !selectedImage && (
@@ -148,10 +148,11 @@ function App() {
 
       {/* Modal (hidden by default) */}
       <div className="modal-content" id="modal" style={{ display: "none" }}>
-        <div>
+        <div className="modal-image">
           <img
             id="modal-image"
-            src={`data:image/png;base64,${selectedImage}`}
+            // src={`data:image/png;base64,${selectedImage}`}
+            src={esfinge}
             alt="Selected Image"
           />
         </div>
@@ -164,10 +165,11 @@ function App() {
           </div>
         </div>
 
-        <div className="editor">
-          {isImgEditorShown && (
+        {isImgEditorShown && (
+          <div className="editor">
             <FilerobotImageEditor
-              source={`data:image/png;base64,${selectedImage}`}
+              // source={`data:image/png;base64,${selectedImage}`}
+              source={esfinge}
               onSave={(editedImageObject, designState) =>
                 console.log("saved", editedImageObject, designState)
               }
@@ -402,8 +404,8 @@ function App() {
               defaultTabId={TABS.ANNOTATE} // or 'Annotate'
               defaultToolId={TOOLS.TEXT} // or 'Text'
             />
-          )}
-        </div>
+          </div>
+        )}
       </div>
 
       <form onSubmit={HandleSubmit}>
