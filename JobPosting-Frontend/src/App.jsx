@@ -143,9 +143,10 @@ function App() {
         </div>
       </div>
 
+      {/* Helios LOGO */}
       {!isLoading && !ImageData && (
-        <div className="helios-logo">
-          <img src={heliosLogo} alt="Helios Logo" className="image"></img>
+        <div className="helios-logo-container">
+          <img src={heliosLogo} alt="Helios Logo" className="helios-logo"></img>
         </div>
       )}
 
@@ -399,7 +400,7 @@ function App() {
                 ],
               }}
               Watermark={{
-                gallery: [magnetoLogo],
+                gallery: [magnetoLogo, heliosLogo],
               }}
               tabsIds={[
                 TABS.ADJUST,

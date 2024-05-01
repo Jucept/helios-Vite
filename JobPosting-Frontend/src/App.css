@@ -16,6 +16,11 @@
   margin: 0 10px;
 }
 
+.helios-logo {
+  max-width: 400px;
+  height: auto;
+}
+
 .image {
   max-width: 400px;
   height: auto;

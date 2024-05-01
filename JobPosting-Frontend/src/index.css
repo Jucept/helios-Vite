@@ -23,6 +23,26 @@
   filter: drop-shadow(0 0 2em #646cffaa);
 }
 
+.scaleflex-logo {
+  text-align: right;
+}
+
+.logo-scaleflex {
+  height: 170px;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo-scaleflex:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+
+.heart-columns {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 a {
   font-weight: 500;
   color: #646cff;
@@ -121,6 +141,12 @@ footer {
 .footer-logo {
     margin-bottom: 1.5rem;
     width: 14rem;
+    will-change: filter;
+    transition: filter 300ms;
+}
+
+.footer-logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
 }
 
 /*? socials */
