@@ -90,13 +90,13 @@ function App() {
 
   const openImgEditor = () => {
     setIsImgEditorShown(true);
-    const modal = document.getElementById("modal-image");
+    const modal = document.getElementById("modal-imagei");
     modal.style.display = "none";
   };
 
   const closeImgEditor = () => {
     setIsImgEditorShown(false);
-    const modal = document.getElementById("modal-image");
+    const modal = document.getElementById("modal-imagei");
     modal.style.display = "block";
   };
 
@@ -150,9 +150,9 @@ function App() {
       <div className="modal-content" id="modal" style={{ display: "none" }}>
         <div className="modal-image">
           <img
-            id="modal-image"
+            id="modal-imagei"
             // src={`data:image/png;base64,${selectedImage}`}
-            src={esfinge}
+            src={esfinge} // Imágen ejemplo, pruebas
             alt="Selected Image"
           />
         </div>
@@ -183,10 +183,10 @@ function App() {
               Crop={{
                 presetsItems: [
                   {
-                    titleKey: "classicTv",
+                    titleKey: "classNameicTv",
                     descriptionKey: "4:3",
                     ratio: 4 / 3,
-                    // icon: CropClassicTv, // optional, CropClassicTv is a React Function component. Possible (React Function component, string or HTML Element)
+                    // icon: CropClassNameicTv, // optional, CropClassNameicTv is a React Function component. Possible (React Function component, string or HTML Element)
                   },
                   {
                     titleKey: "cinemascope",
@@ -450,17 +450,6 @@ function App() {
           <br></br>
           Procura dar detalles especificos que quieras que salgan en la imagen.
         </p>
-      </div>
-
-      <div>
-        <a
-          href="https://dev.azure.com/jmmunozr/P2"
-          target="_blank"
-          className="link-azure"
-        >
-          Proyecto de azure donde estamos documentado todo nuestro proceso como
-          equipo
-        </a>
       </div>
     </>
   );
