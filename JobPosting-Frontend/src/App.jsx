@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import magnetoLogo from "/magneto-b2b-white.svg";
+import heliosLogo from "/Helios-Logo.png";
 import "./App.css";
 import axios from "axios";
 import loadingGif from "/Infinity-loading.gif";
@@ -110,14 +111,14 @@ function App() {
       </div>
 
       <div className="resultado-prompt">
-        <div className="Imagen-01">
+        {/* <div className="Imagen-01">
           <img
             src={esfinge} // Imagen para pruebas
             alt="Imagen generada"
             className="image"
             onClick={() => handleImageClick(esfinge)} // Add onClick handler
           />
-        </div>
+        </div> */}
 
         <div className="Imagen-0">
           {ImageData && !isLoading && !selectedImage && (
@@ -141,6 +142,13 @@ function App() {
           )}
         </div>
       </div>
+
+      {!isLoading && !ImageData && (
+        <div className="helios-logo">
+          <img src={heliosLogo} alt="Helios Logo" className="image"></img>
+        </div>
+      )}
+
       {/* GIF DE CARGA */}
       {isLoading && (
         <img src={loadingGif} alt="Loading..." className="loading-gif" />
@@ -151,8 +159,8 @@ function App() {
         <div className="modal-image">
           <img
             id="modal-imagei"
-            // src={`data:image/png;base64,${selectedImage}`}
-            src={esfinge} // Imágen ejemplo, pruebas
+            src={`data:image/png;base64,${selectedImage}`}
+            // src={esfinge} // Imágen ejemplo, pruebas
             alt="Selected Image"
           />
         </div>
@@ -168,8 +176,8 @@ function App() {
         {isImgEditorShown && (
           <div className="editor">
             <FilerobotImageEditor
-              // source={`data:image/png;base64,${selectedImage}`}
-              source={esfinge}
+              source={`data:image/png;base64,${selectedImage}`}
+              // source={esfinge}
               onSave={(editedImageObject, designState) =>
                 console.log("saved", editedImageObject, designState)
               }
