@@ -33,7 +33,7 @@ npm run dev
 
 ## Start Frontend
 ### Install requirements:
-> [Install](https://github.com/Jucept/helios-Vite/edit/main/README.md#install)
+> [Install](https://github.com/Jucept/helios-Vite?tab=readme-ov-file#install)
 
 ### Run program
 ```
