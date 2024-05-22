@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import magnetoLogo from "/magneto-b2b-white.svg";
 import heliosLogo from "/Helios-Logo.png";
 import "./App.css";
 import axios from "axios";
@@ -10,6 +9,8 @@ import FilerobotImageEditor, {
 } from "react-filerobot-image-editor";
 // eslint-disable-next-line no-unused-vars
 import esfinge from "/Esfinge.jpg";
+import Header from "./Header";
+import magnetoLogo from "/magneto-b2b-white.svg";
 
 function App() {
   const [ImageData, setImageData] = useState("");
@@ -26,11 +27,13 @@ function App() {
 
   const [isImgEditorShown, setIsImgEditorShown] = useState(false);
 
+  const [errorMessage, setErrorMessage] = useState("");
+
   useEffect(() => {
     if (ImageData) {
       setIsLoading(false);
     }
-  }, [ImageData]);
+  }, [ImageData, errorMessage]);
 
   const HandleSubmit = async (event) => {
     event.preventDefault();
@@ -42,6 +45,7 @@ function App() {
     }
 
     setIsLoading(true); // Set loading indicator to true before request
+    setErrorMessage(""); // Clear error message
 
     try {
       const response = await axios.post(
@@ -53,13 +57,17 @@ function App() {
 
       const ImageData = response.data.image;
       const ImageData1 = response.data.image1;
+      const errorMessage = response.data.error;
 
       setPrompt("");
       setImageData(ImageData);
       setImageData1(ImageData1);
+      setIsLoading(false);
     } catch (error) {
+      const errorMessage = error.response.data.error
+      setIsLoading(false);
       console.error("Error sending request:", error);
-      // Mostrar mensaje de error al usuario
+      setErrorMessage(errorMessage);
     }
   };
 
@@ -74,6 +82,7 @@ function App() {
   };
 
   useEffect(() => {
+    const modal = document.getElementById("modal");
     if (selectedImage) {
       // Show modal with selected image
       const modal = document.getElementById("modal");
@@ -111,14 +120,11 @@ function App() {
       </div>
 
       <div className="resultado-prompt">
-        {/* <div className="Imagen-01">
-          <img
-            src={esfinge} // Imagen para pruebas
-            alt="Imagen generada"
-            className="image"
-            onClick={() => handleImageClick(esfinge)} // Add onClick handler
-          />
-        </div> */}
+        {errorMessage && !isLoading && (
+          <div className="error-message">
+            <p>{errorMessage}</p>
+          </div>
+        )}
 
         <div className="Imagen-0">
           {ImageData && !isLoading && !selectedImage && (
@@ -144,7 +150,7 @@ function App() {
       </div>
 
       {/* Helios LOGO */}
-      {!isLoading && !ImageData && (
+      {!isLoading && !ImageData && !errorMessage &&(
         <div className="helios-logo-container">
           <img src={heliosLogo} alt="Helios Logo" className="helios-logo"></img>
         </div>
